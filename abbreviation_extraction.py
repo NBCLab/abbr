@@ -4,7 +4,7 @@ Created on Feb 4, 2016
 
 Identify and expand abbreviations in text.
 
-@author: Jason
+@author: Jason Hays (jhays006)
 """
 
 import re
