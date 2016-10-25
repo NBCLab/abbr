@@ -15,6 +15,7 @@ setup(
     description='Abbreviation detection for raw APA-format text in Python',
     maintainer='Taylor Salo',
     maintainer_email='tsalo006@fiu.edu',
+    install_requires=['nltk'],
     packages=['abbreviations'],
     license='MIT',
     **extra_setuptools_args
