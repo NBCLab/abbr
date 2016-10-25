@@ -5,11 +5,17 @@ This tool uses regular expressions to identify and expand abbreviations found in
 
 We will also be using this to create dictionaries of abbreviations across a domain (cognitive neuroscience, in our case).
 
-Abbreviations are expected to be presented using parentheses, as is standard in APA format. We will attempt to support similar likely scenarios, such as:
-- full term (ABB) 
-- full term (ABB; citation) 
-- ~~ABB (full term)~~: Not currently supported.
-- full term (aBB): Mixed-case abbreviations; fairly common with brain regions.
+Abbreviations are expected to be presented using parentheses, as is standard in APA format.
+
+Currently supported:
+- full term (FT): Simple acronym.
+- full term (FT; citation): Acronym followed by citation(s).
+- full term (fT): Mixed-case acronym.
+- full term (fT; citation): Mixed-case acronym followed by citation(s).
+
+Currently unsupported:
+- FT (full term): Acronym followed by term.
+- Non-acronymic abbreviations.
 
 Once we've made some improvements and estimated the tool's accuracy, we will convert it to a Python package for mass consumption.
 
