@@ -47,7 +47,23 @@ def expandall(text):
             fullterm = re.search(abR, text)
 
             if fullterm is not None:
-                text = __replace(text, abb, fullterm.group(1)[:-1])
+                text = replace(text, abb, fullterm.group(1)[:-1])
             else:
                 print('Empty: {0}'.format(abb))
+    return text
+
+
+def clean_str(text):
+    """ Some standard text cleaning with regex.
+    """
+    # Remove unicode characters.
+    text = re.sub(r'[^\x00-\x7F]+', ' ', text)
+    
+    # Combine multiline hyphenated words. Not sure if this is necessary with html.
+    text = re.sub('-\s[\r\n\t]+', '', text, flags=re.MULTILINE)
+    
+    # Remove newlines and extra spaces.
+    text = re.sub('[\r\n\t]+', ' ', text, flags=re.MULTILINE)
+    text = re.sub('[\s]+', ' ', text, flags=re.MULTILINE)
+
     return text
