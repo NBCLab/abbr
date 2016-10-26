@@ -1,7 +1,3 @@
-"""
-Utilities for abbreviations.
-"""
-
 import re
 from nltk.stem import PorterStemmer as Stemmer
 
@@ -29,25 +25,25 @@ def replace(text, A, B):
     _, re_words = get_res()
 
     match = -1
-    startIndex = 0
+    start_idx = 0
     while match is not None or match == -1:
-        match = re.search(re_words, text[startIndex:])
+        match = re.search(re_words, text[start_idx:])
         if match is not None:
             if do_words_match(match.group(1), A):
-                wordStart = startIndex + match.start()
-                text = text[:wordStart] + B + text[wordStart+len(match.group(1)):]
+                w_start = start_idx + match.start()
+                text = text[:w_start] + B + text[w_start+len(match.group(1)):]
 
-            startIndex += match.end()
+            start_idx += match.end()
     return text
 
 
-def make_abbr_regex(abbMatch):
+def make_abbr_regex(abb_match):
     """
     Each letter in the abbreviation should start one of the words in the
     full term. Stopwords (e.g., a, of, are) may appear between words in the
     full term.
     """
-    abb = abbMatch.group(1)
+    abb = abb_match.group(1)
     regex = ''
     separators = "[A-z]*('s)?)(\\s((a|of|are|with|the|in|to)\\s)?|-[A-z]*)?"
     for index, c in enumerate(abb):
@@ -55,5 +51,5 @@ def make_abbr_regex(abbMatch):
         if index > 0:
             regex+='?'
     regex = '\s('+regex+')'
-    regex += '\\('+abbMatch.group()[1:-1]+'[\\);]'
+    regex += '\\('+abb_match.group()[1:-1]+'[\\);]'
     return re.compile(regex, re.MULTILINE)
