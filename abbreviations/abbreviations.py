@@ -7,6 +7,10 @@ Identify and expand abbreviations in text.
 """
 
 import re
+from glob import glob
+import pandas as pd
+from os.path import join
+from collections import Counter
 from .utils import make_abbr_regex, get_res, replace
 
 
@@ -53,6 +57,35 @@ def expandall(text):
     return text
 
 
+def find_corpus(folder, clean=True):
+    """ Find all abbreviations in a corpus (folder of text files). Returns a
+    dataframe containing the abbreviations, terms associated with each unique
+    abbreviation, and count for each term.
+    """
+    corpus_abbs = {}
+    
+    files = glob(join(folder, '*.txt'))
+    for f in files:
+        with open(f, 'rb') as fo:
+            text = fo.read()
+        
+        if clean:
+            text = clean_str(text)
+        abbs = findall(text)
+        abbs = {k: [v] for (k, v) in abbs.items() if v is not None}
+        keys = set(corpus_abbs).union(abbs)
+        no = []
+        corpus_abbs = dict((k, corpus_abbs.get(k, no) + abbs.get(k, no)) for k in keys)
+    corpus_abbs = {k: Counter(v) for (k, v) in corpus_abbs.items()}
+    results = []
+    for abb in corpus_abbs.keys():
+        for term in corpus_abbs[abb].keys():
+            count = corpus_abbs[abb][term]
+            results.append([abb, term, count])
+    df = pd.DataFrame(data=results, columns=['abbreviation', 'term', 'count'])
+    return df
+
+
 def clean_str(text):
     """ Some standard text cleaning with regex.
     """
@@ -65,5 +98,4 @@ def clean_str(text):
     # Remove newlines and extra spaces.
     text = re.sub('[\r\n\t]+', ' ', text, flags=re.MULTILINE)
     text = re.sub('[\s]+', ' ', text, flags=re.MULTILINE)
-
     return text
