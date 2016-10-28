@@ -17,7 +17,7 @@ Currently unsupported:
 - FT (full term): Acronym followed by term.
 - Non-acronymic abbreviations.
 
-Once we've made some improvements and estimated the tool's accuracy, we will convert it to a Python package for mass consumption.
+Once we've made some improvements and estimated the tool's accuracy, we will convert it to a Python package for mass consumption!
 
 Usage
 --
