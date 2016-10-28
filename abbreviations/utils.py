@@ -3,8 +3,18 @@ from nltk.stem import PorterStemmer as Stemmer
 
 
 def get_res():
-    """ Return regular expression for finding abbreviations and base of
+    """
+    Return regular expression for finding abbreviations and base of
     regex for finding terms.
+
+    Returns
+    -------
+    re_abbr : _sre.SRE_Pattern
+        Regular expression pattern for flagging potential abbreviations in text.
+
+    re_words : _sre.SRE_Pattern
+        Regular expression pattern for identifying words preceding parenthetical
+        statements in text. Used to replace abbreviations with terms.
     """
     # some of the same regex pieces are used in the make_abbr_regex function
     re_abbr = re.compile('\\(([a-zA-Z]+)s?[\\);]', re.MULTILINE)
@@ -14,24 +24,58 @@ def get_res():
 
 
 def do_words_match(A, B):
-    """ Compare stemmed versions of words.
     """
-    return Stemmer().stem(A) == Stemmer().stem(B)
+    Compare stemmed versions of words.
+
+    Parameters
+    -------
+    A : str
+        A word.
+
+    B : str
+        Another word.
+
+    Returns
+    -------
+    match : bool
+        True if the stemmed versions of A and B are equal.
+    """
+    match = Stemmer().stem(A) == Stemmer().stem(B)
+    return match
 
 
-def replace(text, A, B):
-    """ Replace abb A with term B in text.
+def replace(text, abb, fullterm):
+    """
+    Replace abbreviation abb with term fullterm in text using re.search.
+
+    Parameters
+    -------
+    text : str
+        Text in which to replace abbreviations.
+
+    abb : str
+        Abbreviation to expand in text.
+
+    fullterm : str
+        Full term associated with abbreviation abb. Will replace instances of
+        abb in text.
+
+    Returns
+    -------
+    text : str
+        Text with fullterm replacing every instance of abb.
     """
     _, re_words = get_res()
 
-    match = -1
+    match = 1
     start_idx = 0
-    while match is not None or match == -1:
+    while match is not None:
         match = re.search(re_words, text[start_idx:])
         if match is not None:
-            if do_words_match(match.group(1), A):
+            if do_words_match(match.group(1), abb):
                 w_start = start_idx + match.start()
-                text = text[:w_start] + B + text[w_start+len(match.group(1)):]
+                w_end = w_start+len(match.group(1))
+                text = text[:w_start] + fullterm + text[w_end:]
 
             start_idx += match.end()
     return text
@@ -39,17 +83,29 @@ def replace(text, A, B):
 
 def make_abbr_regex(abb_match):
     """
-    Each letter in the abbreviation should start one of the words in the
+    Each letter in the abbreviation should be in one of the words in the
     full term. Stopwords (e.g., a, of, are) may appear between words in the
     full term.
+
+    Parameters
+    -------
+    abb_match : _sre.SRE_Match
+        Potential match for abbreviation.
+
+    Returns
+    -------
+    compiled : _sre.SRE_Pattern
+        Pattern for finding full term within text.
+
     """
     abb = abb_match.group(1)
     regex = ''
-    separators = "[A-z]*('s)?)(\\s((a|of|are|with|the|in|to)\\s)?|-[A-z]*)?"
+    separators = "[A-z]*('s)?)(\\s((a|of|are|with|the|in|to)\\s)*|-[A-z]*)?"
     for index, c in enumerate(abb):
         regex += '((['+c.upper() + c.lower()+']'+separators+')'
         if index > 0:
             regex+='?'
     regex = '\s('+regex+')'
     regex += '\\('+abb_match.group()[1:-1]+'[\\);]'
-    return re.compile(regex, re.MULTILINE)
+    compiled = re.compile(regex, re.MULTILINE)
+    return compiled
