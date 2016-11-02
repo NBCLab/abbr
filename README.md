@@ -8,14 +8,14 @@ We will also be using this to create dictionaries of abbreviations across a doma
 Abbreviations are expected to be presented using parentheses, as is standard in APA format.
 
 Currently supported:
-- full term (FT): Simple acronym.
-- full term (FT; citation): Acronym followed by citation(s).
-- full term (fT): Mixed-case acronym.
-- full term (fT; citation): Mixed-case acronym followed by citation(s).
+- Acronyms in parentheses: full term (FT)
+- Abbreviations in parentheses: full term (fuTE)
+  - All letters within the abbreviation must occur in the words preceding the abbreviation's first use.
+- The above, with citations after the abbreviation: full term (FT; Salo et al., 2016)
 
 Currently unsupported:
 - FT (full term): Acronym followed by term.
-- Non-acronymic abbreviations.
+- Probably many other kinds of abbreviations.
 
 Once we've made some improvements and estimated the tool's accuracy, we will convert it to a Python package for mass consumption!
 
