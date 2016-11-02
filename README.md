@@ -19,6 +19,20 @@ Currently unsupported:
 
 Once we've made some improvements and estimated the tool's accuracy, we will convert it to a Python package for mass consumption!
 
+Installation
+--
+```shell
+cd /desired/location/of/package/
+git clone git@github.com:NBCLab/abbreviations.git
+cd abbreviations/
+
+# for users:
+python setup.py install
+
+# for developers:
+python setup.py develop
+```
+
 Usage
 --
 
