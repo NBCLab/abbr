@@ -47,7 +47,8 @@ def findall(text):
                 fullterm = re.search(abR, text)
 
                 if fullterm is not None:
-                    abbrevs[abb] = str(fullterm.group(1)[:-1])
+                    index = fullterm.group(0).find(' (')
+                    abbrevs[abb] = str(fullterm.group(0)[:index])
                 else:
                     abbrevs[abb] = None
     return abbrevs

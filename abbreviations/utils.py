@@ -17,7 +17,7 @@ def get_res():
         statements in text. Used to replace abbreviations with terms.
     """
     # some of the same regex pieces are used in the make_abbr_regex function
-    re_abbr = re.compile('\\(([a-zA-Z]+)s?[\\);]', re.MULTILINE)
+    re_abbr = re.compile('\\(([a-zA-Z/]+)s?[\\);]', re.MULTILINE)
     re_words = re.compile("([A-z0-9\-]+('s|s')?)([^A-z0-9\-]*)", re.MULTILINE)
 
     return re_abbr, re_words
@@ -98,14 +98,26 @@ def make_abbr_regex(abb_match):
         Pattern for finding full term within text.
 
     """
+    # set the abbreviation as nested text string returned by re.finditer
     abb = abb_match.group(1)
+    
+    # create an empty regex and list possible separators between words
     regex = ''
-    separators = "[A-z]*('s)?)(\\s((a|of|are|with|the|in|to)\\s)*|-[A-z]*)?"
+    separators = "[A-z/]*('s)?)(\\s((a|of|are|with|the|in|to|)\\s)*|-[A-z/]*)?"
+    
+    # iterate through the abbreviation and add each letter to the regex
     for index, c in enumerate(abb):
-        regex += '((['+c.upper() + c.lower()+']'+separators+')'
-        if index > 0:
-            regex+='?'
+        if c is not '/':
+            regex += '((['+c.upper() + c.lower()+']'+separators+')'
+            if index > 0:
+                regex+='?'
+    # confirm that a space precedes the matched expression 
+    # so regex does not match in the middle of a word
     regex = '\s('+regex+')'
-    regex += '\\('+abb_match.group()[1:-1]+'[\\);]'
+    # allow for an additional word before the abbreviation is noted in text
+    # e.g., substantia nigra compacta (SN)
+    regex += '('+separators
+    # confirm that the term is followed by the abbreviation
+    regex += '\\('+abb+'[\\);]'
     compiled = re.compile(regex, re.MULTILINE)
     return compiled
