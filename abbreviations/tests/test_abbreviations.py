@@ -2,7 +2,7 @@ from .utils import get_test_data_path
 from abbreviations.abbreviations import findall, expandall, clean_str
 from glob import glob
 from os.path import join
-import cPickle as pickle
+import pickle
 
 
 def test_findall():
