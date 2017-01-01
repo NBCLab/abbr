@@ -83,11 +83,12 @@ def expandall(text):
     for match in f:
         if match is not None:
             abR = make_abbr_regex(match)
-            abb = match.group(1)
+            abb = str(match.group(1))
             fullterm = re.search(abR, text)
 
             if fullterm is not None:
-                text = replace(text, abb, fullterm.group(1)[:-1])
+                index = fullterm.group(0).find(' (')
+                text = replace(text, abb, str(fullterm.group(0)[:index]))
             else:
                 print('Empty: {0}'.format(abb))
     return text
@@ -181,6 +182,7 @@ def clean_str(text):
     I am a bad string.
     """
     # Remove unicode characters.
+    text.decode('utf-8')
     text = re.sub(r'[^\x00-\x7F]+', ' ', text)
 
     # Combine multiline hyphenated words.
