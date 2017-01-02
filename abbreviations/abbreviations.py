@@ -48,7 +48,7 @@ def findall(text):
 
                 if fullterm is not None:
                     index = fullterm.group(0).find(' (')
-                    abbrevs[abb] = str(fullterm.group(0)[:index])
+                    abbrevs[abb] = str(fullterm.group(0)[:index]).strip()
                 else:
                     abbrevs[abb] = None
     return abbrevs
@@ -88,7 +88,7 @@ def expandall(text):
 
             if fullterm is not None:
                 index = fullterm.group(0).find(' (')
-                text = replace(text, abb, str(fullterm.group(0)[:index]))
+                text = replace(text, abb, str(fullterm.group(0)[:index]).strip())
             else:
                 print('Empty: {0}'.format(abb))
     return text
@@ -182,7 +182,7 @@ def clean_str(text):
     I am a bad string.
     """
     # Remove unicode characters.
-    text.decode('utf-8')
+    text = text.decode('utf-8')
     text = re.sub(r'[^\x00-\x7F]+', ' ', text)
 
     # Combine multiline hyphenated words.
