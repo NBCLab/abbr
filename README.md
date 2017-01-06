@@ -1,4 +1,5 @@
-# abbreviations
+# abbreviations 
+
 A tool to find and expand abbreviations within a string. Designed for scientific writing.
 
 This tool uses regular expressions to identify and expand abbreviations found in a string. This can be useful for counting terms within a scientific article when the relationship between full term and abbreviation is not known ahead of time.
@@ -18,6 +19,10 @@ Currently unsupported:
 - Probably many other kinds of abbreviations.
 
 Once we've made some improvements and estimated the tool's accuracy, we will convert it to a Python package for mass consumption!
+
+Status
+--
+[![Build Status](https://travis-ci.com/emdupre/abbreviations.svg?token=DqydGcufv4xDUqpFRaEx&branch=master)](https://travis-ci.com/emdupre/abbreviations)
 
 Installation
 --
