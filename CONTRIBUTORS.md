@@ -1,6 +1,6 @@
 Code contributors:
 - Jason Hays (https://github.com/jhays006)
-- Elizabeth Dupre (https://github.com/emdupre)
+- Elizabeth DuPre (https://github.com/emdupre)
 - Taylor Salo (https://github.com/tsalo)
 
 Data contributors:

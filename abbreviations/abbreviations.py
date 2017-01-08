@@ -48,7 +48,14 @@ def findall(text):
 
                 if fullterm is not None:
                     index = fullterm.group(0).find(' (')
-                    abbrevs[abb] = str(fullterm.group(0)[:index]).strip()
+                    phrase = str(fullterm.group(0)[:index]).strip()
+                    
+                    for i, c in enumerate(abb):
+                        if any(s in phrase for s in (c.lower(), c.upper())):
+                            abbrevs[abb] = phrase
+                        else:
+                            abbrevs[abb] = None
+                            break
                 else:
                     abbrevs[abb] = None
     return abbrevs
