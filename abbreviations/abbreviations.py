@@ -50,12 +50,10 @@ def findall(text):
                     index = fullterm.group(0).find(' (')
                     phrase = str(fullterm.group(0)[:index]).strip()
                     
-                    for i, c in enumerate(abb):
-                        if any(s in phrase for s in (c.lower(), c.upper())):
-                            abbrevs[abb] = phrase
-                        else:
-                            abbrevs[abb] = None
-                            break
+                    if all(letter.lower() in phrase.lower() for letter in abb):
+                        abbrevs[abb] = phrase
+                    else:
+                        abbrevs[abb] = None
                 else:
                     abbrevs[abb] = None
     return abbrevs
