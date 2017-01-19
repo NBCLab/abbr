@@ -17,7 +17,7 @@ def get_res():
         statements in text. Used to replace abbreviations with terms.
     """
     # some of the same regex pieces are used in the make_abbr_regex function
-    re_abbr = re.compile('\\(([a-zA-Z/]+)s?[\\);]', re.MULTILINE)
+    re_abbr = re.compile('\\s\(([a-zA-Z/]+)s?[\\);]', re.MULTILINE)
     re_words = re.compile("([A-z0-9\-]+('s|s')?)([^A-z0-9\-]*)", re.MULTILINE)
 
     return re_abbr, re_words

@@ -96,7 +96,8 @@ def expandall(text):
     
                 if fullterm is not None:
                     index = fullterm.group(0).find(' (')
-                    text = replace(text, abb, str(fullterm.group(0)[:index]).strip())
+                    fullterm = str(fullterm.group(0)[:index]).strip()
+                    text = replace(text, abb, fullterm)
                 else:
                     print('Empty: {0}'.format(abb))
     return text
