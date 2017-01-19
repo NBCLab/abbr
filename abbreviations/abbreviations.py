@@ -41,7 +41,7 @@ def findall(text):
             abb = str(match.group(1))
 
             # Very long abbreviations will break regex.
-            if len(abb) < 17:
+            if len(abb) < 9:
                 abR = make_abbr_regex(match)
 
                 fullterm = re.search(abR, text)
@@ -90,7 +90,7 @@ def expandall(text):
             abb = str(match.group(1))
 
             # Very long abbreviations will break regex.
-            if len(abb) < 17:
+            if len(abb) < 9:
                 abR = make_abbr_regex(match)
                 fullterm = re.search(abR, text)
     
