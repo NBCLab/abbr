@@ -87,15 +87,18 @@ def expandall(text):
     f = re.finditer(re_abbr, text)
     for match in f:
         if match is not None:
-            abR = make_abbr_regex(match)
             abb = str(match.group(1))
-            fullterm = re.search(abR, text)
 
-            if fullterm is not None:
-                index = fullterm.group(0).find(' (')
-                text = replace(text, abb, str(fullterm.group(0)[:index]).strip())
-            else:
-                print('Empty: {0}'.format(abb))
+            # Very long abbreviations will break regex.
+            if len(abb) < 17:
+                abR = make_abbr_regex(match)
+                fullterm = re.search(abR, text)
+    
+                if fullterm is not None:
+                    index = fullterm.group(0).find(' (')
+                    text = replace(text, abb, str(fullterm.group(0)[:index]).strip())
+                else:
+                    print('Empty: {0}'.format(abb))
     return text
 
 
