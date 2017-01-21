@@ -76,8 +76,9 @@ def replace(text, abb, fullterm):
                 w_start = start_idx + match.start()
                 w_end = w_start+len(match.group(1))
                 text = text[:w_start] + fullterm + text[w_end:]
-
-            start_idx += match.end()
+                start_idx = w_end + len(fullterm)
+            else:
+                start_idx += match.end()
     return text
 
 
