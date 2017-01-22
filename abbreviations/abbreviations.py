@@ -105,7 +105,7 @@ def expandall(text):
                     logger.info('No full term detected for '
                                 'abbreviation {0}'.format(abb))
         else:
-            print 'Match is None.'
+            logger.warning('Abbreviation detection regex returned None.')
     return text
 
 
