@@ -3,7 +3,10 @@ from glob import glob
 import pandas as pd
 from os.path import join
 from collections import Counter
+import logging
 from .utils import make_abbr_regex, get_res, replace
+
+logger = logging.getLogger('abbreviations.main')
 
 
 def findall(text):
@@ -99,7 +102,10 @@ def expandall(text):
                     fullterm = str(fullterm.group(0)[:index]).strip()
                     text = replace(text, abb, fullterm)
                 else:
-                    print('Empty: {0}'.format(abb))
+                    logger.info('No full term detected for '
+                                'abbreviation {0}'.format(abb))
+        else:
+            print 'Match is None.'
     return text
 
 

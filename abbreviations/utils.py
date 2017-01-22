@@ -1,5 +1,8 @@
 import re
 from nltk.stem import PorterStemmer as Stemmer
+import logging
+
+logger = logging.getLogger('abbreviations.utils')
 
 
 def get_res():
@@ -79,8 +82,11 @@ def replace(text, abb, fullterm):
                 text = text[:w_start] + fullterm + text[w_end:]
                 temp_idx = w_start + len(fullterm)
                 try:
-                    start_idx += re.search(r'\b', text[temp_idx:]).start()
+                    temp_idx2 = re.search(r'\b', text[temp_idx:]).start()
+                    start_idx = temp_idx + temp_idx2
                 except:
+                    logger.info('Text ends with an abbreviation ({0}). '
+                                'Escaping while loop.'.format(abb))
                     break
             else:
                 start_idx += match.end()
