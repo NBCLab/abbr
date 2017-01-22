@@ -71,12 +71,17 @@ def replace(text, abb, fullterm):
     start_idx = 0
     while match is not None:
         match = re.search(re_words, text[start_idx:])
+        
         if match is not None:
             if do_words_match(match.group(1), abb):
                 w_start = start_idx + match.start()
                 w_end = w_start+len(match.group(1))
                 text = text[:w_start] + fullterm + text[w_end:]
-                start_idx = w_end + len(fullterm)
+                temp_idx = w_start + len(fullterm)
+                try:
+                    start_idx += re.search(r'\b', text[temp_idx:]).start()
+                except:
+                    break
             else:
                 start_idx += match.end()
     return text
