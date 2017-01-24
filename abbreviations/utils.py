@@ -40,11 +40,14 @@ def do_words_match(A, B):
 
     Returns
     -------
-    match : bool
+    do_match : bool
         True if the stemmed versions of A and B are equal.
     """
-    match = Stemmer().stem(A) == Stemmer().stem(B)
-    return match
+    try:
+        do_match = Stemmer().stem(A) == Stemmer().stem(B)
+    except:
+        do_match = False
+    return do_match
 
 
 def replace(text, abb, fullterm):
