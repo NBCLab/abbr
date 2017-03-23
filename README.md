@@ -33,23 +33,26 @@ python setup.py develop
 abbreviations can be used both to generate a dictionary of terms used in a text, as well as to expand those terms within the text. To find all abbreviations within a text a dictionary of terms and identified definitions:
 ```python
 from abbreviations import findall
-findall(text)
+d = findall(text)
 
+d = {
     "RMTg": "rostromedial tegmental nucleus",
     "CRF": "corticotropin-releasing factor",
     "VTA/SN": "ventral tegmental area/substantia nigra compacta",
     "VS": "ventral striatum",
     "LHb": "lateral habenula",
     "nAChR": "nicotinic acetylcholine receptors"
+    }
 ```
 
+abbreviations can also be used directly to expand abbreviations within a text and return the expanded text.
 ```python
 from abbreviations import expandall
 text = expandall(text)
 ```
 
 ## Next steps
-Ultimately, we would like to shift away from regular expressions toward NLP and ML, but we have no immediate plans to do so.
+Ultimately, we would like to shift away from regular expressions toward NLP and ML, but we have no immediate plans to do so. If you would like to help with this transition, feel free to open a pull request!
 
 ## Reporting Issues and Feature Requests
 We welcome all issue reports and pull requests! When opening an issue, we ask that you provide all necessary detail to reproduce the bug. Specifically:
