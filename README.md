@@ -30,10 +30,21 @@ python setup.py develop
 ```
 
 ## Usage
-abbreviations can be used both to generate a dictionary of terms used in a text, as well as to expand those terms within the text.
+abbreviations can be used both to generate a dictionary of terms used in a text, as well as to expand those terms within the text. To find all abbreviations within a text a dictionary of terms and identified definitions:
+```python
+from abbreviations import findall
+findall(text)
+
+    "RMTg": "rostromedial tegmental nucleus",
+    "CRF": "corticotropin-releasing factor",
+    "VTA/SN": "ventral tegmental area/substantia nigra compacta",
+    "VS": "ventral striatum",
+    "LHb": "lateral habenula",
+    "nAChR": "nicotinic acetylcholine receptors"
+```
+
 ```python
 from abbreviations import expandall
-
 text = expandall(text)
 ```
 
