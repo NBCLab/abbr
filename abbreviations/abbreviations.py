@@ -3,7 +3,10 @@ from glob import glob
 import pandas as pd
 from os.path import join
 from collections import Counter
+import logging
 from .utils import make_abbr_regex, get_res, replace
+
+logger = logging.getLogger('abbreviations.main')
 
 
 def findall(text):
@@ -41,7 +44,7 @@ def findall(text):
             abb = str(match.group(1))
 
             # Very long abbreviations will break regex.
-            if len(abb) < 17:
+            if len(abb) < 9:
                 abR = make_abbr_regex(match)
 
                 fullterm = re.search(abR, text)
@@ -87,15 +90,22 @@ def expandall(text):
     f = re.finditer(re_abbr, text)
     for match in f:
         if match is not None:
-            abR = make_abbr_regex(match)
             abb = str(match.group(1))
-            fullterm = re.search(abR, text)
 
-            if fullterm is not None:
-                index = fullterm.group(0).find(' (')
-                text = replace(text, abb, str(fullterm.group(0)[:index]).strip())
-            else:
-                print('Empty: {0}'.format(abb))
+            # Very long abbreviations will break regex.
+            if len(abb) < 9:
+                abR = make_abbr_regex(match)
+                fullterm = re.search(abR, text)
+    
+                if fullterm is not None:
+                    index = fullterm.group(0).find(' (')
+                    fullterm = str(fullterm.group(0)[:index]).strip()
+                    text = replace(text, abb, fullterm)
+                else:
+                    logger.info('No full term detected for '
+                                'abbreviation {0}'.format(abb))
+        else:
+            logger.warning('Abbreviation detection regex returned None.')
     return text
 
 

@@ -1,5 +1,8 @@
 import re
 from nltk.stem import PorterStemmer as Stemmer
+import logging
+
+logger = logging.getLogger('abbreviations.utils')
 
 
 def get_res():
@@ -17,7 +20,7 @@ def get_res():
         statements in text. Used to replace abbreviations with terms.
     """
     # some of the same regex pieces are used in the make_abbr_regex function
-    re_abbr = re.compile('\\(([a-zA-Z/]+)s?[\\);]', re.MULTILINE)
+    re_abbr = re.compile('\\s\(([a-zA-Z/]+)s?[\\);]', re.MULTILINE)
     re_words = re.compile("([A-z0-9\-]+('s|s')?)([^A-z0-9\-]*)", re.MULTILINE)
 
     return re_abbr, re_words
@@ -37,11 +40,14 @@ def do_words_match(A, B):
 
     Returns
     -------
-    match : bool
+    do_match : bool
         True if the stemmed versions of A and B are equal.
     """
-    match = Stemmer().stem(A) == Stemmer().stem(B)
-    return match
+    try:
+        do_match = Stemmer().stem(A) == Stemmer().stem(B)
+    except:
+        do_match = False
+    return do_match
 
 
 def replace(text, abb, fullterm):
@@ -71,13 +77,22 @@ def replace(text, abb, fullterm):
     start_idx = 0
     while match is not None:
         match = re.search(re_words, text[start_idx:])
+        
         if match is not None:
             if do_words_match(match.group(1), abb):
                 w_start = start_idx + match.start()
                 w_end = w_start+len(match.group(1))
                 text = text[:w_start] + fullterm + text[w_end:]
-
-            start_idx += match.end()
+                temp_idx = w_start + len(fullterm)
+                try:
+                    temp_idx2 = re.search(r'\b', text[temp_idx:]).start()
+                    start_idx = temp_idx + temp_idx2
+                except:
+                    logger.info('Text ends with an abbreviation ({0}). '
+                                'Escaping while loop.'.format(abb))
+                    break
+            else:
+                start_idx += match.end()
     return text
 
 
