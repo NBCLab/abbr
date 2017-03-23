@@ -34,15 +34,18 @@ abbreviations can be used both to generate a dictionary of terms used in a text,
 ```python
 from abbreviations import findall
 d = findall(text)
+```
 
-d = {
-    "RMTg": "rostromedial tegmental nucleus",
-    "CRF": "corticotropin-releasing factor",
-    "VTA/SN": "ventral tegmental area/substantia nigra compacta",
-    "VS": "ventral striatum",
-    "LHb": "lateral habenula",
-    "nAChR": "nicotinic acetylcholine receptors"
-    }
+Where d will be a dictionary like the following:
+```python
+{
+"RMTg": "rostromedial tegmental nucleus",
+"CRF": "corticotropin-releasing factor",
+"VTA/SN": "ventral tegmental area/substantia nigra compacta",
+"VS": "ventral striatum",
+"LHb": "lateral habenula",
+"nAChR": "nicotinic acetylcholine receptors"
+}
 ```
 
 abbreviations can also be used directly to expand abbreviations within a text and return the expanded text.
