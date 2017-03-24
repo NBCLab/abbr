@@ -36,7 +36,7 @@ from abbreviations import findall
 d = findall(text)
 ```
 
-Where *d* will be a dictionary like the following:
+Where *d* will be a dictionary similar to the following:
 ```python
 {
 "RMTg": "rostromedial tegmental nucleus",
