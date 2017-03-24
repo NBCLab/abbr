@@ -52,7 +52,7 @@ def findall(text):
                 if fullterm is not None:
                     index = fullterm.group(0).find(' (')
                     phrase = str(fullterm.group(0)[:index]).strip()
-                    
+
                     if all(letter.lower() in phrase.lower() for letter in abb):
                         abbrevs[abb] = phrase
                     else:
@@ -96,7 +96,7 @@ def expandall(text):
             if len(abb) < 9:
                 abR = make_abbr_regex(match)
                 fullterm = re.search(abR, text)
-    
+
                 if fullterm is not None:
                     index = fullterm.group(0).find(' (')
                     fullterm = str(fullterm.group(0)[:index]).strip()
@@ -169,7 +169,7 @@ def find_corpus(folder, clean=True):
 
 def clean_str(text):
     """
-    Apply some standard text cleaning with regex.
+    Apply some standard text cleaning with regular expressions.
         1. Remove unicode characters.
         2. Combine multiline hyphenated words.
         3. Remove newlines and extra spaces.
