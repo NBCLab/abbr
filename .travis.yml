@@ -13,7 +13,7 @@ before_script:
 - python setup.py install
 
 script: 
-- py.test --cov-report term-missing --cov=peakdet
+- py.test --cov-report term-missing --cov=abbreviations
 
 after_success:
 - coveralls
