@@ -13,7 +13,7 @@ before_script:
 - python setup.py install
 
 script: 
-- py.test --cov-report term-missing --cov=abbreviations
+- py.test --cov-report term-missing --cov=abbr
 
 after_success:
 - coveralls
