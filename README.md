@@ -1,4 +1,4 @@
-# abbreviations
+# abbr
 
 A tool to find and expand abbreviations within a string. Designed for scientific writing.
 
@@ -30,7 +30,7 @@ python setup.py develop
 ```
 
 ## Usage
-abbreviations can be used both to generate a dictionary of terms used in a text, as well as to expand those terms within the text. To find all abbreviations within a text a dictionary of terms and identified definitions:
+abbr can be used both to generate a dictionary of terms used in a text, as well as to expand those terms within the text. We can use abbr to find all abbreviations within a text, and return a dictionary of terms as well as identified definitions:
 ```python
 from abbreviations import findall
 d = findall(text)
