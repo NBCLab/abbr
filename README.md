@@ -31,7 +31,7 @@ python setup.py develop
 ## Usage
 abbr can be used both to generate a dictionary of terms used in a text, as well as to expand those terms within the text. We can use abbr to find all abbreviations within a text, and return a dictionary of terms as well as identified definitions:
 ```python
-from abbreviations import findall
+from abbr import findall
 d = findall(text)
 ```
 
@@ -49,7 +49,7 @@ Where *d* will be a dictionary similar to the following:
 
 abbr can also be used directly to expand abbreviations within a text and return the expanded text.
 ```python
-from abbreviations import expandall
+from abbr import expandall
 text = expandall(text)
 ```
 
