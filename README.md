@@ -4,7 +4,7 @@ A tool to find and expand abbreviations within a string. Designed for scientific
 
 [![Build Status](https://travis-ci.org/NBCLab/abbreviations.svg?branch=master)](https://travis-ci.org/NBCLab/abbreviations) [![Coverage Status](https://coveralls.io/repos/github/NBCLab/abbreviations/badge.svg?branch=master)](https://coveralls.io/github/NBCLab/abbreviations?branch=master)
 
-abbreviations is a regular expression based tool to find and expand abbreviations in text. It is designed for use with scientific writing.
+abbr is an abbreviation of "abbreviations." It is a regular expression based tool to find and expand abbreviations in text, and it is designed for use with scientific writing.
 Use cases may include counting terms within a scientific article when the relationship between full term and abbreviation is not known ahead of time or improving meta-analytic estimates of term frequency.
 
 Abbreviations are expected to be presented using parentheses, as is standard in APA format.
@@ -18,9 +18,8 @@ Currently supported:
 
 ## Installation
 ```shell
-cd /desired/location/of/package/
-git clone git@github.com:NBCLab/abbreviations.git
-cd abbreviations/
+git clone git@github.com:NBCLab/abbr.git
+cd abbr/
 
 # for users:
 python setup.py install
@@ -48,7 +47,7 @@ Where *d* will be a dictionary similar to the following:
 }
 ```
 
-abbreviations can also be used directly to expand abbreviations within a text and return the expanded text.
+abbr can also be used directly to expand abbreviations within a text and return the expanded text.
 ```python
 from abbreviations import expandall
 text = expandall(text)
