@@ -1,2 +1,2 @@
 from .utils import *
-from .test_abbreviations import *
+from .test_abbr import *
