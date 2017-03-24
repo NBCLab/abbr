@@ -1,5 +1,5 @@
 from .utils import get_test_data_path
-from ..abbreviations import findall, expandall, clean_str
+from ..abbr import findall, expandall, clean_str
 from glob import glob
 from os.path import join
 import json
