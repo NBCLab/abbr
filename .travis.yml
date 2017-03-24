@@ -5,10 +5,15 @@ python:
 - "3.5"
     
 install:
+- pip install pytest pytest-cov
+- pip install coveralls
 - pip install -r requirements.txt
 
 before_script:
 - python setup.py install
 
 script: 
-- py.test 
+- py.test --cov-report term-missing --cov=abbreviations
+
+after_success:
+- coveralls

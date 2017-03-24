@@ -2,7 +2,7 @@
 
 A tool to find and expand abbreviations within a string. Designed for scientific writing.
 
-[![Build Status](https://travis-ci.com/emdupre/abbreviations.svg?token=DqydGcufv4xDUqpFRaEx&branch=master)](https://travis-ci.com/emdupre/abbreviations)
+[![Build Status](https://travis-ci.org/NBCLab/abbreviations.svg?branch=master)](https://travis-ci.org/NBCLab/abbreviations) [![Coverage Status](https://coveralls.io/repos/github/NBCLab/abbreviations/badge.svg?branch=master)](https://coveralls.io/github/NBCLab/abbreviations?branch=master)
 
 abbreviations is a regular expression based tool to find and expand abbreviations in text. It is designed for use with scientific writing.
 Use cases may include counting terms within a scientific article when the relationship between full term and abbreviation is not known ahead of time or improving meta-analytic estimates of term frequency.
@@ -36,7 +36,7 @@ from abbreviations import findall
 d = findall(text)
 ```
 
-Where d will be a dictionary like the following:
+Where *d* will be a dictionary similar to the following:
 ```python
 {
 "RMTg": "rostromedial tegmental nucleus",
