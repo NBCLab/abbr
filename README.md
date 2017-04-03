@@ -2,7 +2,7 @@
 
 A tool to find and expand abbreviations within a string. Designed for scientific writing.
 
-[![Build Status](https://travis-ci.org/NBCLab/abbreviations.svg?branch=master)](https://travis-ci.org/NBCLab/abbreviations) [![Coverage Status](https://coveralls.io/repos/github/NBCLab/abbreviations/badge.svg?branch=master)](https://coveralls.io/github/NBCLab/abbreviations?branch=master)
+[![Build Status](https://travis-ci.org/NBCLab/abbr.svg?branch=master)](https://travis-ci.org/NBCLab/abbr) [![Coverage Status](https://coveralls.io/repos/github/NBCLab/abbreviations/badge.svg?branch=master)](https://coveralls.io/github/NBCLab/abbreviations?branch=master)
 
 abbr is an abbreviation of "abbreviations." It is a regular expression based tool to find and expand abbreviations in text, and it is designed for use with scientific writing.
 Use cases may include counting terms within a scientific article when the relationship between full term and abbreviation is not known ahead of time or improving meta-analytic estimates of term frequency.
