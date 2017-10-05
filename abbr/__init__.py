@@ -1,1 +1,1 @@
-from .abbr import (findall, expandall, clean_str, find_corpus)
+from .abbr import (findall, expandall, compressall, clean_str, find_corpus)
