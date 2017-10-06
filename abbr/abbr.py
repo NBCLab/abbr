@@ -59,7 +59,42 @@ def findall(text):
                         abbrevs[abb] = None
                 else:
                     abbrevs[abb] = None
+                    logger.info('No full term detected for '
+                                'abbreviation {0}'.format(abb))
+        else:
+            logger.warning('Abbreviation detection regex returned None.')
     return abbrevs
+
+
+def compressall(text):
+    """
+    Search for abbreviations in text using re_abbr (defined in utils.get_res).
+    For each abbreviation, find likely full term. Replace each instance of the
+    full term in the text with the abbreviation.
+
+    Parameters
+    ----------
+    text : str
+        Text to search for abbreviations.
+
+    Returns
+    -------
+    text: str
+        Text with compressed abbreviations.
+
+    Examples
+    ----------
+    >>> text = 'This is a test string (TS). I hope it is informative (inf).'
+    >>> compressed = compressall(text)
+    >>> print(compressed)
+    This is a TS (TS). I hope it is inf (inf).
+    """
+    abbrevs = findall(text)
+    for abb, fullterm in abbrevs.items():
+        if fullterm is not None:
+            text = replace(text, abb, fullterm, rep_abbs=False)
+
+    return text
 
 
 def expandall(text):
@@ -85,27 +120,11 @@ def expandall(text):
     >>> print(expanded)
     This is a test string (test string). I hope it is informative (informative).
     """
-    re_abbr, _ = get_res()
+    abbrevs = findall(text)
+    for abb, fullterm in abbrevs.items():
+        if fullterm is not None:
+            text = replace(text, abb, fullterm, rep_abbs=True)
 
-    f = re.finditer(re_abbr, text)
-    for match in f:
-        if match is not None:
-            abb = str(match.group(1))
-
-            # Very long abbreviations will break regex.
-            if len(abb) < 9:
-                abR = make_abbr_regex(match)
-                fullterm = re.search(abR, text)
-
-                if fullterm is not None:
-                    index = fullterm.group(0).find(' (')
-                    fullterm = str(fullterm.group(0)[:index]).strip()
-                    text = replace(text, abb, fullterm)
-                else:
-                    logger.info('No full term detected for '
-                                'abbreviation {0}'.format(abb))
-        else:
-            logger.warning('Abbreviation detection regex returned None.')
     return text
 
 
@@ -151,7 +170,7 @@ def find_corpus(folder, clean=True):
         abbs = findall(text)
         abbs = {k: [v] for (k, v) in abbs.items() if v is not None}
         keys = set(corpus_abbs).union(abbs)
-        no = []
+        no = []  # Default if abbreviation not in both corpus_abbs and file abbs
         corpus_abbs = dict((k, corpus_abbs.get(k, no) + abbs.get(k, no)) for k in keys)
 
     # Count number of documents in which a given (abb, term) pair occurs.
