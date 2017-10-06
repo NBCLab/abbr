@@ -90,7 +90,7 @@ def compressall(text):
     This is a TS (TS). I hope it is inf (inf).
     """
     abbrevs = findall(text)
-    for abb, fullterm in abbrevs.iteritems():
+    for abb, fullterm in abbrevs.items():
         if fullterm is not None:
             text = replace(text, abb, fullterm, rep_abbs=False)
 
@@ -121,7 +121,7 @@ def expandall(text):
     This is a test string (test string). I hope it is informative (informative).
     """
     abbrevs = findall(text)
-    for abb, fullterm in abbrevs.iteritems():
+    for abb, fullterm in abbrevs.items():
         if fullterm is not None:
             text = replace(text, abb, fullterm, rep_abbs=True)
 
